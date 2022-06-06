@@ -1,0 +1,14 @@
+1. 自动配置原理
+@SpringbootApplication的核心包含@SpringBootConfiguration
+                                @EnableAutoConfiguration
+                                @ComponentScan
+    @SpringBootConfiguration：包含@Configuration,代表当前是要给配置类，表明Main也是Springboot的配置类
+    @ComponentScan：包扫描，@ComponentScan做的事情就是告诉Spring从哪里找到bean
+    @EnableAutoConfiguration：包含@AutoConfigurationPackage
+                               @Import(AutoConfigurationImportSelector.class)
+                               public @interface EnableAutoConfiguration {}     及一些语言注解，
+                               其中的@AutoConfigurationPackage，自动配置包又包含
+                                    @Import(AutoConfigurationPackages.Registrar.class)
+                                    public @interface AutoConfigurationPackage {}这两个组件，@Import通过Registrar实现批量导入组件
+                               所以@AutoConfigurationPackage是将指定一个包内的所有组件导入MainApplicaion所在包下
+
